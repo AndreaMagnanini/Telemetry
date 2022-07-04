@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TWebApp.Shared.Models
+namespace TDBService.Models
 {
     internal class Telemetry
     {
@@ -16,9 +16,5 @@ namespace TWebApp.Shared.Models
         [Required] public string CreatedBy { get; set; }
         [Required] public int Duration { get; set; }  // duration of the telemetry streaming in milliseconds
         [Required] public int Status { get; set; }
-    }
-    enum StatusValue
-    {
-        Created, Running, Finished, Error
     }
 }
