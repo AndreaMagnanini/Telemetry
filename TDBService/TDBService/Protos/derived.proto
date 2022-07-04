@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "TDBService.Protos";
+
+service GrpcSaveDerivedDataStreaming {
+	rpc SaveTelemetryDerivedData (stream DerivedDataMessage) returns (DerivedDataResponse);
+	rpc InitTelemetry(TelemetryInitMessage) returns(TelemetryInitResponse);
+}
+
+message DerivedDataMessage {
+	string TelemetryId = 1;
+	string FrameId = 2;
+	google.protobuf.timestamp FrameTimeStamp = 3;
+	repeated int32 ChannelIDs = 4;
+	float DerivedValue = 5;
+}
+
+message DerivedDataResponse {
+	enum Value{
+		Failed = 0;
+		Success = 1;
+	}
+	Value DerivedRSesponse = 1;
+}
+
+message TelemetryInitMessage {
+	string TelemetryId = 1;
+	string Name = 2;
+	string Description = 3;
+	string Creator = 4;
+	repeated int32 ChannelIds = 5;
+}
+
+message TelemetryInitResponse {
+	string CreatedTelemetryId = 1;
+	repeated int32 CreatedChannelIds = 2;
+}

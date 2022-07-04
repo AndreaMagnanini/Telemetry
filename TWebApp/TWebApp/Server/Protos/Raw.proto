@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "TWebApp.Server.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+service GrpcSaveRawDataStreaming {
+	rpc SaveTelemetryRawData (stream RawDataMessage) returns (RawDataResponse);
+	rpc InitTelemetry(TelemetryInitMessage) returns(TelemetryInitResponse);
+}
+
+message RawDataMessage {
+	string TelemetryId = 1;
+	string FrameId = 2;
+	google.protobuf.timestamp FrameTimeStamp = 3;
+	repeated int32 ChannelIDs = 4;
+	float RawValue = 5;
+}
+
+message RawDataResponse {
+	enum Value{
+		Failed = 0;
+		Success = 1;
+	}
+	Value RawResponse = 1;
+}
+
+message TelemetryInitMessage {
+	string TelemetryId = 1;
+	string Name = 2;
+	string Description = 3;
+	string Creator = 4;
+	repeated int32 ChannelIds = 5;
+}
+
+message TelemetryInitResponse {
+	string CreatedTelemetryId = 1;
+	repeated int32 CreatedChannelIds = 2;
+}
+
